@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudioPulse — Stop Losing Members You Could Have Kept</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand: #6C3BFF;
+      --brand-dark: #5228e8;
+      --brand-light: #f0ebff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --bg: #ffffff;
+      --section-bg: #f9fafb;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a { color: var(--brand); text-decoration: none; }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--brand);
+      letter-spacing: -0.5px;
+    }
+    .nav-cta {
+      background: var(--brand);
+      color: #fff;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.15s;
+    }
+    .nav-cta:hover { background: var(--brand-dark); color: #fff; }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .pilot-badge {
+      display: inline-block;
+      background: var(--brand-light);
+      color: var(--brand);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: 99px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--brand);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 0.9rem 2.25rem;
+      border-radius: 8px;
+      transition: background 0.15s, transform 0.1s;
+      margin-bottom: 0.75rem;
+    }
+    .hero-cta:hover { background: var(--brand-dark); color: #fff; transform: translateY(-1px); }
+    .hero-sub {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    /* PAIN */
+    .pain {
+      background: var(--section-bg);
+      padding: 4rem 1.5rem;
+    }
+    .pain-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 0.75rem;
+    }
+    .pain h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      line-height: 1.3;
+    }
+    .pain-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+    .pain-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .pain-card blockquote {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+      font-style: normal;
+      line-height: 1.4;
+    }
+    .pain-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* HOW IT WORKS */
+    .how {
+      padding: 5rem 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .how h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      line-height: 1.3;
+    }
+    .modules {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .module {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .module-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      background: var(--brand-light);
+      color: var(--brand);
+      font-weight: 800;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .module-body h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .module-body p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* PRICING */
+    .pricing {
+      background: var(--section-bg);
+      padding: 5rem 1.5rem;
+    }
+    .pricing-inner {
+      max-width: 520px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .pricing h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--brand);
+      line-height: 1.1;
+      margin: 1rem 0 0.3rem;
+    }
+    .pricing-price span {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+    .pricing-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      display: inline-block;
+    }
+    .pricing-features li {
+      padding: 0.45rem 0;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--brand);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .who {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-align: left;
+      margin-top: 1.5rem;
+    }
+    .who strong { color: var(--text); display: block; margin-bottom: 0.3rem; }
+
+    /* FAQ */
+    .faq {
+      padding: 5rem 1.5rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .faq h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 0;
+    }
+    .faq-item h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .faq-item p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* CTA BOTTOM */
+    .cta-bottom {
+      background: var(--brand);
+      color: #fff;
+      text-align: center;
+      padding: 5rem 1.5rem;
+    }
+    .cta-bottom h2 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .cta-bottom p {
+      font-size: 1rem;
+      opacity: 0.85;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+    .cta-bottom-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--brand);
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 0.9rem 2.25rem;
+      border-radius: 8px;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .cta-bottom-btn:hover { opacity: 0.92; transform: translateY(-1px); color: var(--brand); }
+    .spots-notice {
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      opacity: 0.75;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0.75rem 1rem; }
+      .hero { padding: 3.5rem 1rem 3rem; }
+      .module { flex-direction: column; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">StudioPulse</span>
+  <a href="https://calendly.com" class="nav-cta">Book a Demo</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- UPDATE THIS NUMBER MANUALLY: change "7" to current remaining spots -->
+  <div class="pilot-badge">7/10 founding spots remaining</div>
+  <h1>Stop Losing Members You Could Have Kept</h1>
+  <p>StudioPulse spots at-risk members 2 weeks before they quit, fills empty class spots automatically, and recovers failed payments — so you keep more revenue with less admin work.</p>
+  <a href="https://calendly.com" class="hero-cta">Schedule Your Free 20-Minute Demo</a>
+  <span class="hero-sub">No credit card. No commitment. Just a conversation.</span>
+</section>
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="pain-inner">
+    <div class="section-label">The Problem</div>
+    <h2>Running a studio is hard enough. The tools shouldn't make it harder.</h2>
+    <div class="pain-cards">
+      <div class="pain-card">
+        <blockquote>"Do you know which of your members is about to cancel?"</blockquote>
+        <p>Most studios find out when the cancellation email arrives. By then it's too late.</p>
+      </div>
+      <div class="pain-card">
+        <blockquote>"Last-minute class cancellations still feel like a scramble?"</blockquote>
+        <p>Texting your waitlist at 5:45am isn't a workflow. It's a fire drill.</p>
+      </div>
+      <div class="pain-card">
+        <blockquote>"How much revenue are failed payments costing you every month?"</blockquote>
+        <p>The average studio loses 3–6% of billing to failed cards — most of it recoverable in 48 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section-label">How It Works</div>
+  <h2>Four modules. One platform. Less admin.</h2>
+  <div class="modules">
+    <div class="module">
+      <div class="module-num">1</div>
+      <div class="module-body">
+        <h3>Churn Alerts</h3>
+        <p>StudioPulse tracks check-in frequency, booking patterns, and visit recency for every member. When someone starts drifting — fewer visits, missed classes, longer gaps — you get an alert 2 weeks before they're likely to cancel. Reach out while there's still time to win them back.</p>
+      </div>
+    </div>
+    <div class="module">
+      <div class="module-num">2</div>
+      <div class="module-body">
+        <h3>Automated Sub Coverage</h3>
+        <p>When a class loses an instructor or members cancel, StudioPulse automatically notifies your waitlist, promotes the next person in line, and confirms the update — no texts, no calls, no scramble.</p>
+      </div>
+    </div>
+    <div class="module">
+      <div class="module-num">3</div>
+      <div class="module-body">
+        <h3>Billing Recovery</h3>
+        <p>Failed card? StudioPulse retries at optimal intervals, sends a friendly recovery email, and notifies the member to update their card. Most recoveries happen within 48 hours. You focus on coaching — we handle collections.</p>
+      </div>
+    </div>
+    <div class="module">
+      <div class="module-num">4</div>
+      <div class="module-body">
+        <h3>Class Scheduling</h3>
+        <p>One calendar. All your instructors, all your classes, all your bookings. Members book online; you see it in real time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="pricing-inner">
+    <div class="section-label">Pricing</div>
+    <h2>Pilot pricing for founding studios</h2>
+    <div class="pricing-price">$60–$80<span>/mo</span></div>
+    <p class="pricing-sub">Locked for life if you join the founding cohort.</p>
+    <ul class="pricing-features">
+      <li>Unlimited members</li>
+      <li>All 4 modules included</li>
+      <li>90-day pilot, cancel anytime</li>
+      <li>Onboarding + setup included</li>
+      <li>Email &amp; Slack support</li>
+    </ul>
+    <a href="https://calendly.com" class="hero-cta" style="display:block;text-align:center;">Schedule Your Free 20-Minute Demo</a>
+    <div class="who">
+      <strong>Who this is for</strong>
+      Independent yoga studios, CrossFit boxes, and boutique gyms with 100–400 active members. We built this for owners who are tired of stitching together Mindbody, spreadsheets, and text chains to run their business.
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2>FAQ</h2>
+  <div class="faq-item">
+    <h3>Is this replacing my current system?</h3>
+    <p>For most studios, yes — but we'll discuss your setup on the call and be honest if it's not the right time to switch.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What does setup look like?</h3>
+    <p>We handle onboarding. Most studios are live within a week.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Why is the pilot price so low?</h3>
+    <p>We're signing our first 10 studios. You get the low price for life if you join the founding cohort. We get honest feedback. Everyone wins.</p>
+  </div>
+  <div class="faq-item">
+    <h3>I'm a chain — does this work for me?</h3>
+    <p>Not yet. We're built for 1–3 location operators today.</p>
+  </div>
+</section>
+
+<!-- CTA BOTTOM -->
+<section class="cta-bottom">
+  <h2>Ready to stop losing members you could have kept?</h2>
+  <p>Schedule a free 20-minute demo. We'll show you exactly how StudioPulse works for your studio.</p>
+  <a href="https://calendly.com" class="cta-bottom-btn">Schedule Your Free 20-Minute Demo →</a>
+  <!-- UPDATE: change "7" to current remaining spots -->
+  <p class="spots-notice">Limited to 10 founding studio pilots. Currently: 7/10 signed.</p>
+</section>
+
+<footer>
+  &copy; 2026 StudioPulse. Built for independent fitness studio owners.
+</footer>
+
+</body>
+</html>
